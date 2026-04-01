@@ -1,6 +1,6 @@
 # 과제: 개발 워크스테이션 구축 및 Docker 활용
 
-## 0. 프로젝트 개요 및 환경
+# 0. 프로젝트 개요 및 환경
 * **프로젝트 개요:** 본 프로젝트는 Docker 컨테이너 기반의 웹 서버 개발 워크스테이션을 구축하고 Git/GitHub와 연동하여 버전 관리 및 협업 환경을 구성하는 것을 목표로 합니다.
 * **실행 환경:** * OS: Windows 10/11 (Git Bash 터미널 환경)
   * Docker 버전: Docker version 29.3.1
@@ -13,178 +13,89 @@
   - [x] 바인드 마운트 및 Docker 볼륨 영속성 검증
   - [x] Git/GitHub 저장소 연동
 
-## 1. 터미널 조작 로그 기록
+# 1. 터미널 조작 로그 기록
 터미널에서 디렉토리/파일 생성, 복사, 이동, 삭제 등의 기본 조작을 수행했습니다.
 
-```bash
-# 1. 현재 위치 확인
-$ pwd
-C:\Users\qlcke\docker-assignment
+## 1. 현재 위치 확인
+![현재 경로](./images/pwd.png)
 
-# 2. 실습용 디렉토리 생성 및 이동
-$mkdir terminal_test$ cd terminal_test
+## 2. 실습용 디렉토리 생성 및 이동
+![디렉토리 생성 및 이동](./images/mkdir.png)
 
-# 3. 빈 파일 생성 및 목록 확인 (숨김 파일 포함)
-$touch empty_file.txt$ ls -al
-total 28
-drwxr-xr-x 1 qlcke 197609 0 Mar 31 21:42 ./
-drwxr-xr-x 1 qlcke 197609 0 Mar 31 21:16 ../
--rw-r--r-- 1 qlcke 197609 0 Mar 31 21:21 README.md
--rw-r--r-- 1 qlcke 197609 0 Mar 31 21:42 empty_file.txt
-drwxr-xr-x 1 qlcke 197609 0 Mar 31 21:30 images/
-drwxr-xr-x 1 qlcke 197609 0 Mar 31 21:37 terminal_test/
+## 3. 빈 파일 생성 및 목록 확인 (숨김 파일 포함)
+![파일 생성 및 목록 확인](./images/touch.png)
 
-# 4. 파일 내용 확인 (빈 파일이므로 아무것도 출력되지 않음)
-$ cat empty_file.txt
+## 4. 파일 내용 확인 및 파일에 내용 추가 후 확인
+![4](./images/cat,%20echo.png)
 
-# 5. 파일에 내용 추가 후 다시 확인 (echo 활용)
-$echo "Hello OrbStack" > empty_file.txt$ cat empty_file.txt
-Hello OrbStack
+## 5. 파일 복사 및 이동/이름 변경
+![5](./images/cp,%20mv.png)
 
-# 6. 파일 복사 및 이동/이름 변경
-$cp empty_file.txt copied_file.txt$ mv copied_file.txt renamed_file.txt
-$ ls -al
-total 30
-drwxr-xr-x 1 qlcke 197609  0 Mar 31 21:44 ./
-drwxr-xr-x 1 qlcke 197609  0 Mar 31 21:16 ../
--rw-r--r-- 1 qlcke 197609  0 Mar 31 21:21 README.md
--rw-r--r-- 1 qlcke 197609 15 Mar 31 21:44 empty_file.txt
-drwxr-xr-x 1 qlcke 197609  0 Mar 31 21:30 images/
--rw-r--r-- 1 qlcke 197609 15 Mar 31 21:44 renamed_file.txt
-drwxr-xr-x 1 qlcke 197609  0 Mar 31 21:37 terminal_test/
 
-# 7. 파일 삭제 및 최종 목록 확인
-$rm empty_file.txt$ ls -al
-total 29
-drwxr-xr-x 1 qlcke 197609  0 Mar 31 21:45 ./
-drwxr-xr-x 1 qlcke 197609  0 Mar 31 21:16 ../
--rw-r--r-- 1 qlcke 197609  0 Mar 31 21:21 README.md
-drwxr-xr-x 1 qlcke 197609  0 Mar 31 21:30 images/
--rw-r--r-- 1 qlcke 197609 15 Mar 31 21:44 renamed_file.txt
-drwxr-xr-x 1 qlcke 197609  0 Mar 31 21:37 terminal_test/
-```
-## 2. 권한 실습 및 증거 기록
+## 6. 파일 삭제 및 최종 목록 확인
+![6](./images/rm.png)
+
+# 2. 권한 실습 및 증거 기록
 파일 1개, 디렉토리 1개에 대해 권한 확인 및 변경을 수행하고 비교했습니다.
 
-```bash
-# 1. 실습용 파일과 디렉토리 준비
-$touch perm_file.txt$ mkdir perm_dir
 
-# 2. 권한 변경 전 확인
-$ ls -al | grep perm_
-drwxr-xr-x 1 qlcke 197609  0 Mar 31 21:46 perm_dir/
--rw-r--r-- 1 qlcke 197609  0 Mar 31 21:46 perm_file.txt
+## 1. 실습용 파일과 디렉토리 준비
+![2-1](./images/touch2.png)
 
-# 3. 권한 변경 수행
-$chmod 700 perm_file.txt
-$ chmod 777 perm_dir
+## 2. 권한 변경 전 확인
+![2-2](./images/ls2.png)
+## 3. 권한 변경 수행 및 비교 확인
+![2-3](./images/chmod.png)
 
-# 4. 권한 변경 후 비교 확인
-$ ls -al | grep perm_
-drwxrwxrwx 1 qlcke 197609  0 Mar 31 21:46 perm_dir/
--rwx------ 1 qlcke 197609  0 Mar 31 21:46 perm_file.txt
-```
-## 3. Docker 설치 및 기본 점검
+# 3. Docker 설치 및 기본 점검
 Docker 버전과 데몬이 정상적으로 동작하는지 확인했습니다.
 
-```bash
-# 1. Docker 버전 확인
-$ docker --version
-Docker version 29.3.1, build c2be9cc
 
-# 2. Docker 데몬 동작 여부 확인 
-$ docker info
-Client:
- Version:    29.3.1
- Context:    desktop-linux
- Debug Mode: false
- Plugins:
-  agent: Docker AI Agent Runner (Docker Inc.)
-    Version:  v1.34.0
-```
-## 4. Docker 기본 운영 명령 수행
+## 1. Docker 버전 확인 및 데몬 동작 여부 확인
+![3-1](./images/dk%20vs,%20info.png)
 
-```bash
-# 1. 현재 다운로드된 도커 이미지 목록 확인
-$ docker images
-IMAGE           ID             DISK USAGE   CONTENT SIZE   EXTRA
-ubuntu:latest   186072bba1b2        119MB         31.7MB    U
+## 2. 현재 다운로드된 도커 이미지,컨테이너 목록 확인
+![3-2](./images/dk%20im,%20ps.png)
 
-# 2. 실행 중인 컨테이너 목록 확인
-$ docker ps
-CONTAINER ID   IMAGE     COMMAND       CREATED             STATUS             PORTS     NAMES
-5d26554c79c1   ubuntu    "/bin/bash"   About an hour ago   Up About an hour
-my-linux
+## 3. 리소스 확인 
+![3-3](./images/dk%20stats.png)
 
-# 3. 종료된 것을 포함한 모든 컨테이너 목록 확인
-$ docker ps -a
-CONTAINER ID   IMAGE     COMMAND       CREATED             STATUS             PORTS     NAMES
-5d26554c79c1   ubuntu    "/bin/bash"   About an hour ago   Up About an hour
-my-linux
 
-# 4. 리소스 확인 
-$ docker stats --no-stream
-CONTAINER ID   NAME       CPU %     MEM USAGE / LIMIT    MEM %     NET I/O         BLOCK I/O   PIDS
-5d26554c79c1   my-linux   0.00%     2.02MiB / 7.675GiB   0.03%     1.17kB / 126B   0B / 0B     1
-```
-
-## 5. 컨테이너 실행 실습
+# 4. 컨테이너 실행 실습
 Docker가 컨테이너를 정상적으로 생성하고 실행할 수 있는지 테스트하고 우분투 컨테이너 내부로 진입해 보았습니다.
 
-```bash
-$ docker run hello-world
-Hello from Docker!
-This message shows that your installation appears to be working correctly.
-```
+## 1. 도커 컨테이너 생성
+![4-1](./images/dk%20run.png)
 
-```bash
-# ubuntu 컨테이너 내부(bash)로 진입 및 명령어 수행
-$ docker run -it ubuntu bash
-root@abcdef12345:/# ls
-bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
-boot  etc  lib   media  opt  root  sbin  sys  usr
 
-root@abcdef12345:/# echo "Hello Ubuntu Container"
-Hello Ubuntu Container
-root@abcdef12345:/# exit
-```
+
+## 2. ubuntu 컨테이너를 생성하고 내부(bash)로 진입 및 명령어 수행
+![4-2](./images/dk%20run%20bs.png)
+
 컨테이너 종료/유지(attach/exec) 차이점 관찰 결과
 
 attach: 컨테이너의 메인 프로세스(PID 1)에 직접 접속하는 방식입니다. 여기서 exit 명령어로 빠져나오면 메인 프로세스가 종료되므로 컨테이너 자체도 함께 종료(Stop)됩니다.
 
 exec: 이미 실행 중인 컨테이너에 새로운 프로세스를 추가로 실행하여 접속하는 방식입니다. exit를 통해 빠져나오더라도 원래 메인 프로세스는 영향을 받지 않으므로 컨테이너가 계속 실행(Up) 상태를 유지합니다.
 
-## 6. 기존 Dockerfile 기반 커스텀 이미지 제작
+# 5. 기존 Dockerfile 기반 커스텀 이미지 제작
 (A) 웹 서버 베이스 이미지를 활용한 커스텀 이미지 제작을 선택하여 진행했습니다.
 
 선택한 베이스 이미지: nginx:latest (공식 NGINX 웹 서버 이미지)
 
 커스텀 포인트 목적: NGINX에서 기본 제공하는 시작 페이지 대신, 직접 작성한 정적 콘텐츠(index.html)가 서비스되도록 설정 파일을 교체했습니다.
 
-```bash
-$ cat Dockerfile
-FROM nginx:latest
-COPY index.html /usr/share/nginx/html/index.html
+## 1. Dockerfile 및 index.html 생성
 
-$ docker build -t my-custom-nginx .
-[+] Building 8.0s (7/7) FINISHED                                   docker:desktop-linux
- => exporting to image                                                             0.2s
- => => naming to docker.io/library/my-custom-nginx:latest                          0.0s
-```
-빌드한 이미지를 기반으로 웹 서버 컨테이너를 실행했습니다. 호스트의 8080 포트와 컨테이너의 80 포트를 매핑(-p 8080:80)했습니다.
+![5-1](./images/dp,%20html.png)
 
-```bash
-$ docker run -d -p 8080:80 --name my-web-server my-custom-nginx
-13d0af87971befe1462985221aceae38a3ad2fc74d6416989a9610b74e4dff11
+## 2. docker 이미지 빌드 및 컨테이너 실행
 
-$ docker ps
-CONTAINER ID   IMAGE             COMMAND                   CREATED             STATUS             PORTS                                     NAMES
-13d0af87971b   my-custom-nginx   "/docker-entrypoint.…"   25 seconds ago      Up 25 seconds      0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   my-web-server
-```
+![5-2](./images/dk%20build%20,%20run.png)
 포트 매핑 접속 증거
-![포트 매핑 브라우저 접속 화면](./images/02_port_mapping_browser.png)
+![포트 매핑 브라우저 접속 화면](./images/maping.png)
 
-## 7. 데이터 영속성 검증 (바인드 마운트 및 도커 볼륨)
+# 7. 데이터 영속성 검증 (바인드 마운트 및 도커 볼륨)
 1) 바인드 마운트 반영 검증
 호스트의 디렉토리를 컨테이너와 연결하여, 호스트 디렉토리의 변경 전/후 상태를 비교했습니다.
 
